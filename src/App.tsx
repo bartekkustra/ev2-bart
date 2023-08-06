@@ -3,11 +3,12 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes, Route } from 'react-router-dom'
 
 import Dashboard from "./page/dashboard"
+import Tests from './page/tests'
 import Sidebar from "./page/global/Sidebar"
 import Topbar from "./page/global/Topbar"
-// import Team from "./page/team"
+import Team from "./page/team"
+import Contacts from "./page/contacts"
 // import Invoice from "./page/invoices"
-// import Contacts from "./page/contacts"
 // import Bar from "./page/bar"
 // import Form from "./page/form"
 // import Line from "./page/line"
@@ -27,9 +28,10 @@ function App() {
             <Topbar />
             <Routes>
               <Route path='/' element={<Dashboard />} />
-              {/* <Route path='/team' element={<Team />} /> */}
+              <Route path='/tests' element={<Tests />} />
+              <Route path='/team' element={<Team />} />
+              <Route path='/contacts' element={<Contacts />} />
               {/* <Route path='/invoice' element={<Invoice />} /> */}
-              {/* <Route path='/contacts' element={<Contacts />} /> */}
               {/* <Route path='/bar' element={<Bar />} /> */}
               {/* <Route path='/form' element={<Form />} /> */}
               {/* <Route path='/line' element={<Line />} /> */}

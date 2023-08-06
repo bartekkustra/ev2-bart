@@ -16,6 +16,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }: {
   title: SidebarMenu.TMenuItemLabel
@@ -49,6 +50,8 @@ const Sidebar = () => {
 
   const menuItems: SidebarMenu.TMenuItem[]  = [
     { type: 'item', title: 'Dashboard', to: '/', icon: <HomeOutlinedIcon /> },
+    { type: 'heading', title: 'Tests' },
+    { type: 'item', title: 'Summary', to: '/tests', icon: <SpeedOutlinedIcon /> },
     { type: 'heading', title: 'Data' },
     { type: 'item', title: 'Manage Team', to: '/team', icon: <PeopleOutlinedIcon /> },
     { type: 'item', title: 'Contacts Information', to: '/contacts', icon: <ContactsOutlinedIcon /> },
@@ -66,7 +69,7 @@ const Sidebar = () => {
 
   return (
     <Box>
-      <ProSidebar collapsed={isCollapsed} rootStyles={{
+      <ProSidebar className='sidebar-aside' collapsed={isCollapsed} rootStyles={{
         [`.${sidebarClasses.container}`]: {
           backgroundColor: 'transparent'
         },

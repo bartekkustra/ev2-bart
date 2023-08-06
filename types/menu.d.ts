@@ -1,25 +1,26 @@
 declare module SidebarMenu {
   type TMenuItemLabel =
-    | "Dashboard"
-    | "Team"
-    | "Manage Team"
-    | "Contacts Information"
-    | "Invoices Balances"
-    | "Profile Form"
-    | "Calendar"
-    | "FAQ Page"
-    | "Bar Chart"
-    | "Pie Chart"
-    | "Line Chart"
-    | "Geography Chart";
+    | 'Dashboard'
+    | 'Tests'
+    | 'Team'
+    | 'Manage Team'
+    | 'Contacts Information'
+    | 'Invoices Balances'
+    | 'Profile Form'
+    | 'Calendar'
+    | 'FAQ Page'
+    | 'Bar Chart'
+    | 'Pie Chart'
+    | 'Line Chart'
+    | 'Geography Chart';
 
   interface IMenuItemHeading {
-    type: "heading";
+    type: 'heading';
     title: string;
   }
 
   interface IMenuItemLink {
-    type: "item";
+    type: 'item';
     title: MenuItemLabel;
     to: string;
     icon: React.ReactNode;
