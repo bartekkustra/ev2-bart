@@ -23,7 +23,7 @@ const Topbar = () => {
   const TopbarWrapper = styled(MuiBox)`
     display: flex;
     justify-content: space-between;
-    padding: 15px;
+    padding: 20px;
   `
   const SearchWrapper = styled(MuiBox)`
     background-color: ${colors.primary[400]};

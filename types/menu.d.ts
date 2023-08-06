@@ -1,5 +1,5 @@
 declare module SidebarMenu {
-  type MenuItem =
+  type TMenuItemLabel =
     | "Dashboard"
     | "Team"
     | "Manage Team"
@@ -12,4 +12,18 @@ declare module SidebarMenu {
     | "Pie Chart"
     | "Line Chart"
     | "Geography Chart";
+
+  interface IMenuItemHeading {
+    type: "heading";
+    title: string;
+  }
+
+  interface IMenuItemLink {
+    type: "item";
+    title: MenuItemLabel;
+    to: string;
+    icon: React.ReactNode;
+  }
+
+  type TMenuItem = IMenuItemHeading | IMenuItemLink;
 }

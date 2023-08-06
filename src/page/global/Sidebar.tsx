@@ -18,7 +18,7 @@ import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }: {
-  title: SidebarMenu.MenuItem
+  title: SidebarMenu.TMenuItemLabel
   to: string
   icon: React.ReactNode
   selected: string
@@ -34,9 +34,9 @@ const Item = ({ title, to, icon, selected, setSelected }: {
       }}
       onClick={() => setSelected(title)}
       icon={icon}
+      component={<Link to={to} />}
     >
       <Typography>{title}</Typography>
-      <Link to={to} />
     </MenuItem>
   );
 };
@@ -46,6 +46,23 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
+
+  const menuItems: SidebarMenu.TMenuItem[]  = [
+    { type: 'item', title: 'Dashboard', to: '/', icon: <HomeOutlinedIcon /> },
+    { type: 'heading', title: 'Data' },
+    { type: 'item', title: 'Manage Team', to: '/team', icon: <PeopleOutlinedIcon /> },
+    { type: 'item', title: 'Contacts Information', to: '/contacts', icon: <ContactsOutlinedIcon /> },
+    { type: 'item', title: 'Invoices Balances', to: '/invoices', icon: <ReceiptOutlinedIcon /> },
+    { type: 'heading', title: 'Pages' },
+    { type: 'item', title: 'Profile Form', to: '/form', icon: <PersonOutlinedIcon /> },
+    { type: 'item', title: 'Calendar', to: '/calendar', icon: <CalendarTodayOutlinedIcon /> },
+    { type: 'item', title: 'FAQ Page', to: '/faq', icon: <HelpOutlineOutlinedIcon /> },
+    { type: 'heading', title: 'Charts' },
+    { type: 'item', title: 'Bar Chart', to: '/bar', icon: <BarChartOutlinedIcon /> },
+    { type: 'item', title: 'Pie Chart', to: '/pie', icon: <PieChartOutlineOutlinedIcon /> },
+    { type: 'item', title: 'Line Chart', to: '/line', icon: <TimelineOutlinedIcon /> },
+    { type: 'item', title: 'Geography Chart', to: '/geography', icon: <MapOutlinedIcon /> },
+  ]
 
   return (
     <Box>
@@ -82,7 +99,7 @@ const Sidebar = () => {
                 ml="15px"
               >
                 <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                  EagleView
                 </Typography>
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -98,7 +115,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src={`../../assets/user.png`}
+                  src={`../../assets/bart_icon.jpg`}
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -109,117 +126,34 @@ const Sidebar = () => {
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  Ed Roh
+                  Bart Kustra
                 </Typography>
                 <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
+                  Test Infrastructure
                 </Typography>
               </Box>
             </Box>
           )}
 
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            <Item
-              title="Dashboard"
-              to="/"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Data
-            </Typography>
-            <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Contacts Information"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography>
-            <Item
-              title="Profile Form"
-              to="/form"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Charts
-            </Typography>
-            <Item
-              title="Bar Chart"
-              to="/bar"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/geography"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
+            {menuItems.map((x: SidebarMenu.TMenuItem) => {
+              if (x.type === 'heading')
+                return <Typography
+                  variant="h6"
+                  color={colors.grey[300]}
+                  sx={{ m: "15px 0 5px 20px" }}
+                >
+                  {x.title}
+                </Typography>
+              if (x.type === 'item')
+                return <Item
+                  title={x.title}
+                  to={x.to}
+                  icon={x.icon}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+            })}
           </Box>
         </Menu>
       </ProSidebar>
