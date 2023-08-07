@@ -11,8 +11,8 @@ import Team from "./page/team"
 import Contacts from "./page/contacts"
 import Form from './page/form'
 import FAQ from "./page/faq"
+import LineChart from "./page/linechart"
 // import Bar from "./page/bar"
-// import Line from "./page/line"
 // import Pie from "./page/pie"
 
 function App() {
@@ -33,8 +33,8 @@ function App() {
               <Route path='/contacts' element={<Contacts />} />
               <Route path='/form' element={<Form />} />
               <Route path='/faq' element={<FAQ />} />
+              <Route path='/line' element={<LineChart />} />
               {/* <Route path='/bar' element={<Bar />} /> */}
-              {/* <Route path='/line' element={<Line />} /> */}
               {/* <Route path='/pie' element={<Pie />} /> */}
             </Routes>
           </main>
