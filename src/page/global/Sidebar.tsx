@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Sidebar as ProSidebar, Menu, MenuItem, sidebarClasses } from "react-pro-sidebar";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { tokens } from "../../theme";
 
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import SpeedOutlinedIcon from '@mui/icons-material/SpeedOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }: {
@@ -29,6 +26,7 @@ const Item = ({ title, to, icon, selected, setSelected }: {
   const colors = tokens(theme.palette.mode);
   return (
     <MenuItem
+      key={title}
       active={selected === title}
       style={{
         color: colors.grey[100],
@@ -43,10 +41,11 @@ const Item = ({ title, to, icon, selected, setSelected }: {
 };
 
 const Sidebar = () => {
+  const location = useLocation();
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
+  const [selected, setSelected] = useState('');
 
   const menuItems: SidebarMenu.TMenuItem[]  = [
     { type: 'item', title: 'Dashboard', to: '/', icon: <HomeOutlinedIcon /> },
@@ -55,17 +54,24 @@ const Sidebar = () => {
     { type: 'heading', title: 'Data' },
     { type: 'item', title: 'Manage Team', to: '/team', icon: <PeopleOutlinedIcon /> },
     { type: 'item', title: 'Contacts Information', to: '/contacts', icon: <ContactsOutlinedIcon /> },
-    { type: 'item', title: 'Invoices Balances', to: '/invoices', icon: <ReceiptOutlinedIcon /> },
     { type: 'heading', title: 'Pages' },
-    { type: 'item', title: 'Profile Form', to: '/form', icon: <PersonOutlinedIcon /> },
-    { type: 'item', title: 'Calendar', to: '/calendar', icon: <CalendarTodayOutlinedIcon /> },
+    { type: 'item', title: 'Form', to: '/form', icon: <PersonOutlinedIcon /> },
     { type: 'item', title: 'FAQ Page', to: '/faq', icon: <HelpOutlineOutlinedIcon /> },
     { type: 'heading', title: 'Charts' },
     { type: 'item', title: 'Bar Chart', to: '/bar', icon: <BarChartOutlinedIcon /> },
     { type: 'item', title: 'Pie Chart', to: '/pie', icon: <PieChartOutlineOutlinedIcon /> },
     { type: 'item', title: 'Line Chart', to: '/line', icon: <TimelineOutlinedIcon /> },
-    { type: 'item', title: 'Geography Chart', to: '/geography', icon: <MapOutlinedIcon /> },
   ]
+
+  useEffect(() => {
+    const currentPage = Object.values(menuItems).filter(x => {
+      if (x.type === 'item') {
+        return x.to === location.pathname
+      }
+    })[0].title || 'Dashboard'
+    setSelected(currentPage)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location])
 
   return (
     <Box>
@@ -156,6 +162,7 @@ const Sidebar = () => {
                   selected={selected}
                   setSelected={setSelected}
                 />
+                return null
             })}
           </Box>
         </Menu>
